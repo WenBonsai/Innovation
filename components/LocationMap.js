@@ -3,7 +3,7 @@ import { StyleSheet, Alert } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
-// Replace these with actual tattoo salon locations in Copenhagen
+// Static data for tattoo salons in Copenhagen
 const tattooSalons = [
     { id: '1', latitude: 55.677580, longitude: 12.575450, title: 'Copenhagen Body Extremes', description: 'Nørregade 47, 1165 København' },
     { id: '2', latitude: 55.690610, longitude: 12.557880, title: 'Mikstattoo', description: 'Vesterbro 19, 1620 København' },
@@ -14,9 +14,11 @@ const tattooSalons = [
 
 
 const LocationMap = () => {
+    // State to track location permission and user's current location
     const [hasLocationPermission, setHasLocationPermission] = useState(false);
     const [currentLocation, setCurrentLocation] = useState(null);
 
+    // Function to request and check location permission
     const getLocationPermission = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
@@ -28,6 +30,7 @@ const LocationMap = () => {
         setCurrentLocation(location.coords);
     };
 
+    // useEffect to call getLocationPermission when component mounts
     useEffect(() => {
         getLocationPermission();
     }, []);
@@ -36,8 +39,8 @@ const LocationMap = () => {
         <MapView 
             style={styles.map}
             initialRegion={{
-                latitude: 55.6761, // Latitude for Copenhagen
-                longitude: 12.5683, // Longitude for Copenhagen
+                latitude: 55.6761, // Latitude for Copenhagen center
+                longitude: 12.5683, // Longitude for Copenhagen center
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             }}
@@ -62,11 +65,8 @@ const LocationMap = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1
-    },
     map: {
-      flex: 1
+      flex: 1 // Style for the map to take up the full container
     }
 });
 

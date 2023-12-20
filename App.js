@@ -21,7 +21,7 @@ const Drawer = createDrawerNavigator();
 
 
 
-
+// Firebase konfigurationsnøgle
 const firebaseConfig = {
   apiKey: "AIzaSyAZ022pw0MIUFVQ5MqjAyEHfbuHISDVylE",
   authDomain: "fir-39f82.firebaseapp.com",
@@ -44,9 +44,9 @@ export default function App() {
   } else {
     console.log("Firebase not on!");
   }
- 
+ // her oprettes en authentification variabel, som bruges til at lytte efter om brugeren er logget ind
   const auth = getAuth();
-
+// her oprettes en funktion, der lytter efter om brugeren er logget ind eller ej
   function onAuthStateChange(callback) {
     return onAuthStateChanged(auth, (user) => {
       if (user) {
